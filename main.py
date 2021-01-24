@@ -129,25 +129,16 @@ def ray_color(r, world, depth):
         scattered = Ray()
         attenuation = Color()
         if rec.material.scatter(r, rec, attenuation, scattered):
-            color = attenuation * ray_color(scattered, world, depth-1)
-            c = (color.x + color.y + color.z)/3
-            return Color(c,c,c)
+            return  attenuation * ray_color(scattered, world, depth-1)
+            # experimenting with black and white
+            #c = (color.x + color.y + color.z)/3
+            #return Color(c,c,c)
 
         return Color(0,0,0)
-        #target = rec.p + rec.normal + Vec.random_unit_vector()
-        #target = rec.p + rec.normal + Vec.random_in_hemisphere(rec.normal)
-        #return 0.5 * ray_color(Ray(rec.p, target-rec.p), world, depth-1)
-        color = 0.5 * ray_color(Ray(rec.p, target-rec.p), world, depth-1)
-        #return 0.5 * (rec.normal + Color(1,1,1))
-        #N = rec.normal.unit_vector()
-        #color = 0.5 * Color(N.x+1, N.y+1, N.z+1)
-        c = (color.x + color.y + color.z)/3
-        return Color(c,c,c)
-        #return 0.5 *Color(N.x+1, N.y+1, N.z+1)
     ud = r.direction.unit_vector()
     t = 0.5 * (ud.y + 1)
-    #return (1-t) * Vec(1,1,1) + t*Vec(0.5,0.7,1.0)
-    return (1-t) * Vec(1,1,1) + t*Vec(0.0,0.0,0.0)
+    return (1-t) * Vec(1,1,1) + t*Vec(0.5,0.7,1.0)
+    # return (1-t) * Vec(1,1,1) + t*Vec(0.0,0.0,0.0)
 
 aspect_ratio = 16/9
 
